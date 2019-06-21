@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+canvas自身无法绘制
+canvas绘制必须借助 JS
+<canvas id="cavsElem">
+    你的浏览器不支持cavas
+</canvas>
+</body>
+<script>
+    var canvas = document.getElementById('cavsElem')//获取画布
+
+    //context 上下文 是所有绘制操作api的入口或者集合
+    //Context 对象就是JS操作canvas的接口
+    var ctx = canvas.getContext('2d');//注意 2d小写 3d: webg1
+
+    // 基本的绘制路径
+    //  canvas 左上角（0，0开始） x向右增大 向下增大
+
+    // 设置绘制起点 moveTo()
+    // 语法
+       ctx.moveTo(x,y);
+    // 设置上下文绘制的起点
+    // x y都是相对于canvas盒子的左上角
+    // 回之前必须设置起点 否则无效
+
+    // 绘制直线(lineTo)
+    // 语法：
+    ctx.lineTo(x,y);
+    // 从 x y 的位置绘制一条直线到起点
+    //参数 x y
+
+
+    // 路径开始和闭合
+    // 开始路径：
+    ctx.beginPath()
+    //闭合路径
+    ctx.closePath()
+    //解释 复杂路径 必须使用路径的开始和结束
+    // 闭合路径会自动把最后的线头和开始的线头连接在一起
+    // beginPath:核心的作用是 将不同的绘制形状进行隔离
+    //每次执行 重新绘制一个路径
+
+
+    // 描边
+    // stroke
+    //语法
+    ctx.stroke();
+    //解释 根据路径绘制线 路径只是草稿 真正绘制线必须执行stroke
+
+    // canvas 绘制的基本步骤
+    // 1.获取上下文
+    canvasElem.getContext('2d');
+    // 2.开始路径规划
+    ctx.beginPath()
+    // 3.移动起始点
+    ctx.moveTo()
+    // 4.绘制线（矩形 圆形 图片）
+    ctx.lineTo(x,y)
+    // 5.闭合路径
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

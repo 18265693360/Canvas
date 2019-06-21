@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Canvas标签
+canvas 油布画布
+可以设置宽高 单位px  width height 默认像素 300*150
+注意：
+    不要用CSS控制它的宽高 会走出图片的拉伸
+    重新设置canvas宽高 画布内容会擦出所有的内容
+    可以给canvas设置背景色
+
+
+浏览器不兼容处理
+ie9支持 别的chrome.... 都支持
+移动端的兼容情况非常理想，基本上随便使用
+2d的支持的都非常好，3d（webgl）ie11才支持，其他都支持
+
+
+浏览器不兼容 进行友好提示
+
+eg:
+<canvas id="cavsElem">
+    您的浏览器不支持canvas，请升级浏览器，浏览器不支持显示此文本
+
+    还可以进行优雅降级
+</canvas>
+</body>
+<script>
+
+</script>
+</html>

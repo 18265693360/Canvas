@@ -49,7 +49,21 @@
         // 图片压缩
         context.drawImage(img, 0, 0, targetWidth, targetHeight);
         var type = 'image/jpeg';
+
+
+
         //将canvas元素中的图像转变为DataURL
+        // 将图片转为base64的好处
+
+        // 将图片转换为Base64编码，可以让你很方便地在没有上传文件的条件下将图片插入其它的网页、
+        // 编辑器中。 这对于一些小的图片是极为方便的，因为你不需要再去寻找一个保存图片的地方。
+
+        // 将图片转换成base64编码的，在web网上一般用于小图片上，
+        // 不仅可以减少图片的请求数量（集合到js、css代码中），
+        // 还可以防止因为一些相对路径等问题导致图片404错误。
+
+
+
         var dataurl = canvas.toDataURL(type);
         $("#ceshi1").attr("src",dataurl);
         //抽取DataURL中的数据部分，从Base64格式转换为二进制格式

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #svgContainer {
+            width:1000px;
+            height:600px;
+            background-color:#EEEEEE;
+        }
+
+        #sourceDiv {
+            float: left;
+            border: 2px solid #000000;
+        }
+        #targetDiv {
+            float: right;
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+<h1>HTML Canvas Image Process - By Gloomy Fish</h1>
+<div id="svgContainer">
+    <div id="sourceDiv">
+        <img id="source" src="./image/pic1.png" />
+    </div>
+    <div id="targetDiv">
+        <canvas id="target"></canvas>
+    </div>
+</div>
+<div id="btn-group">
+    <button type="button" id="invert-button">反色</button>
+    <button type="button" id="adjust-button">灰色调</button>
+    <button type="button" id="blur-button">模糊</button>
+    <button type="button" id="relief-button">浮雕</button>
+    <button type="button" id="diaoke-button">雕刻</button>
+    <button type="button" id="mirror-button">镜像</button>
+</div>
+</body>
+<script src="gloomyfishfilter.js"></script>
+<script>
+    // var tempContext = null; // global variable 2d context
+    // window.onload = function() {
+
+    // 2.如何绘制一个DOM img对象到Canvas对象中
+    // var source = document.getElementById("source");
+    // tempContext.drawImage(source, 0, 0, canvas.width,canvas.height);
+        var source = document.getElementById("source");
+        var canvas = document.getElementById("target");
+        canvas.width = source.clientWidth;
+        canvas.height = source.clientHeight;
+
+        // if (!canvas.getContext) {
+        //     console.log("Canvas not supported. Please install a HTML5 compatible browser.");
+        //     return;
+        // }
+
+        // get 2D context of canvas and draw image
+        tempContext = canvas.getContext("2d");
+        tempContext.drawImage(source, 0, 0, canvas.width, canvas.height);
+
+        // initialization actions
+
+        // bind mouse click event
+        // bindButtonEvent(inButton, "click", invertColor);
+        // bindButtonEvent(adButton, "click", adjustColor);
+        // bindButtonEvent(blurButton, "click", blurImage);
+        // bindButtonEvent(reButton, "click", fudiaoImage);
+        // bindButtonEvent(dkButton, "click", kediaoImage);
+        // bindButtonEvent(mirrorButton, "click", mirrorImage);
+    // }
+
+    // function bindButtonEvent(element, type, handler) {
+    //     if(element.addEventListener) {
+    //         element.addEventListener(type, handler, false);
+    //     } else {
+    //         element.attachEvent('on'+type, handler); // for IE6,7,8
+    //     }
+    // }
+
+    var inButton = document.getElementById("invert-button");
+    inButton.onclick = function invertColor() {
+        var canvas = document.getElementById("target");
+        var len = canvas.width * canvas.height * 4;
+        var canvasData = tempContext.getImageData(0, 0, canvas.width, canvas.height);
+        // getImageData() 方法返回 ImageData 对象，该对象拷贝了画布指定矩形的像素数据。
+        // 在操作完成数组中的 color/alpha 信息之后，您可以使用 putImageData() 方法将图像数据拷贝回画布上。
+        // var imgData=context.getImageData(x,y,width,height);
+        // x	开始复制的左上角位置的 x 坐标。
+        // y	开始复制的左上角位置的 y 坐标。
+        // width	将要复制的矩形区域的宽度。
+        // height	将要复制的矩形区域的高度。
+
+        //二进制数据
+        var binaryData = canvasData.data;
+
+        // Processing all the pixels(像素)
+        gfilter.colorInvertProcess(binaryData, len);
+
+        // Copying back canvas data to canvas
+        tempContext.putImageData(canvasData, 0, 0);
+    };
+
+    var adButton = document.getElementById("adjust-button");
+    adButton.onclick = function adjustColor() {
+        var canvas = document.getElementById("target");
+        var len = canvas.width * canvas.height * 4;
+        var canvasData = tempContext.getImageData(0, 0, canvas.width, canvas.height);
+        var binaryData = canvasData.data;
+
+        // Processing all the pixels
+        gfilter.colorAdjustProcess(binaryData, len);
+
+        // Copying back canvas data to canvas
+        tempContext.putImageData(canvasData, 0, 0);
+    }
+
+    var blurButton = document.getElementById("blur-button");
+    blurButton.onclick = function blurImage() {
+        var canvas = document.getElementById("target");
+        var len = canvas.width * canvas.height * 4;
+        var canvasData = tempContext.getImageData(0, 0, canvas.width, canvas.height);
+
+        // Processing all the pixels
+        gfilter.blurProcess(tempContext, canvasData);
+
+        // Copying back canvas data to canvas
+        tempContext.putImageData(canvasData, 0, 0);
+    }
+
+    var reButton = document.getElementById("relief-button");
+    reButton.onclick = function fudiaoImage() {
+        var canvas = document.getElementById("target");
+
+        // 如何从Canvas对象中获取像素数据
+        // var canvas = document.getElementById("target");
+        // var len = canvas.width * canvas.height * 4;
+        // var canvasData = tempContext.getImageData(0, 0, canvas.width, canvas.height);
+        // var binaryData = canvasData.data;
+
+        var len = canvas.width * canvas.height * 4;
+        var canvasData = tempContext.getImageData(0, 0, canvas.width, canvas.height);
+
+        // Processing all the pixels
+        gfilter.reliefProcess(tempContext, canvasData);
+
+        // Copying back canvas data to canvas
+        tempContext.putImageData(canvasData, 0, 0);
+    }
+
+    var dkButton = document.getElementById("diaoke-button");
+    dkButton.onclick = function kediaoImage() {
+        var canvas = document.getElementById("target");
+        var len = canvas.width * canvas.height * 4;
+        var canvasData = tempContext.getImageData(0, 0, canvas.width, canvas.height);
+
+        // Processing all the pixels
+        gfilter.diaokeProcess(tempContext, canvasData);
+
+        // Copying back canvas data to canvas
+        tempContext.putImageData(canvasData, 0, 0);
+    }
+
+    var mirrorButton = document.getElementById("mirror-button");
+    mirrorButton.onclick = function mirrorImage() {
+        var canvas = document.getElementById("target");
+        var len = canvas.width * canvas.height * 4;
+        var canvasData = tempContext.getImageData(0, 0, canvas.width, canvas.height);
+
+        // Processing all the pixels
+        gfilter.mirrorProcess(tempContext, canvasData);
+
+        // Copying back canvas data to canvas
+        tempContext.putImageData(canvasData, 0, 0);
+    }
+</script>
+</html>

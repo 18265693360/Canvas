@@ -10,6 +10,10 @@ canvas绘制必须借助 JS
 <canvas id="cavsElem">
     你的浏览器不支持cavas
 </canvas>
+
+<canvas>
+    <img src="" alt="" id="imgId">
+</canvas>
 </body>
 <script>
     var canvas = document.getElementById('cavsElem')//获取画布
@@ -62,7 +66,109 @@ canvas绘制必须借助 JS
     // 4.绘制线（矩形 圆形 图片）
     ctx.lineTo(x,y)
     // 5.闭合路径
+    ctx.closePath()
+    //绘制描边
+    ctx.stroke();
 
+
+    //填充
+    // fill
+    // 语法
+    ctx.fill();
+    //是将闭合的路径的内容填充具体的颜色 默认黑色
+
+    // 快速创建矩阵 	rectangle
+    ctx.rect(x,y,width,height);
+    //x,y 是矩形的左上角坐标 width height 都是像素为单位
+    // rect 只是规划了矩形的路径 并没有填充和描边
+
+    //快速创建描边矩形和填充矩形
+    //描边
+    ctx.strokeRect(x,y,width,height);
+    //填充
+    ctx.fillRect(x,y,width,height);
+
+
+    // 清除矩形clearRect
+    ctx.clearRect(x,y,width,height);
+    //作用 清除矩形内绘制的内容
+
+
+    // 绘制圆形[词典]	circular; round;
+    ctx.arc()//创建弧形 曲线
+    ctx.arc(x,y,r,sAngle,eAngle,counterclockwise)
+    /*
+    *  x y 就是圆心
+    *  r 就是半径
+    *  sAngle 开始的角度 圆心到最右边点是0度，顺时针方向弧度增大。
+    *  eAngle 结束的角度 是弧度 π
+    *  counterclockwise: 是否是逆时针 true逆时针 false顺时针
+    *  counter 计时器  clock时钟 wise 明智
+    *  弧度角度换算公式 rad = deg*Math.PI/180
+    * */
+
+    // 绘制文字
+    // font 设置或返回文本内容的当前字体属性
+    // font 属性使用的语法与CSS font 属性形同
+    ctx.font = "18px, '微软雅黑'";
+
+    ctx.textAlign();//设置或者返回指定当前对齐方式
+    /*
+    * start 文本指定开始位置
+    * end 文本在指定位置结束
+    * center 文本中心放置在指定的位置
+    * left 文本左对齐
+    * right 文本右对齐
+    * */
+
+
+    ctx.textBaseline();//设置或返回在绘制文本时使用的当前文本基线
+    /*
+    * alphabetic 文本基线是普通的字母基线
+    * top  文本基线是普通的字母基线
+    * hanging 文本基线是悬挂基线
+    * middle 文本基线 em是方框正中
+    * ideographic 文本基线是en 基线
+    * bottom 文本基线是 em 方框的低端
+    * */
+
+    // 上下文绘制文字的方法
+    ctx.fillText();      //在画布上绘制 被填充的文本
+    ctx.strokeText();    //在画布上绘制文本
+    ctx.measureText();   //返回包含指定文本宽度的对象
+
+
+    //绘制图片
+    context.drawImage(img,x,y);
+    // x,y绘制图片左上角的坐标  img是绘制图片dom对象
+
+    //在画布上绘制图像 并规定图像的宽度和高度
+    context.drawImage(img,x,y,width,height);
+    /*
+    * width 绘制图片的宽度  height绘制图片的高度
+    * 如果指定宽高 最好成比例 不然图片会被拉伸</em>
+    *
+    * 等比公式
+    *       toH = Height * toW / Width;
+    *       设置高 = 原高度 * 设置宽 / 原宽度
+    * */
+
+
+    context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+    // 图片裁剪 并在画布上定位被裁剪的部分
+    // sx,sy 裁剪的左上角坐标
+    // swidth 裁剪的图片的高度  sheight 裁剪的高度
+
+    // 用JS创建img对象
+    //第一种方式
+    var img = document.getElementById('imgId');
+    //第二种方式
+    var img = new Image();//这个就是img标签的dom对象
+    img.src = "imgs/arc.gif";
+    img.alt = "文本信息";
+    img.onload = function () {
+        //图片加载完成后 执行此方法
+    }
 
 
 

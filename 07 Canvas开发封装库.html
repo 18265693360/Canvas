@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //思考：我们用到的矩形需要哪些绘制的东西呢？
+    // 1、矩形的 x、y坐标
+    // 2、矩形的宽高
+    // 3、矩形的边框的线条样式、线条宽度
+    // 4、矩形填充的样式
+    // 5、矩形的旋转角度
+    // 6、矩形的缩小放大
+
+    function ItcastRect(option) {//矩形构造函数
+        this._init(option);
+    }
+    ItcastRect.prototype = {//矩形的原型对象上
+        init: function (option) {//初始化方法
+            option = option || {};
+            this.x = option.x === 0 ? 0 : option.x || 100;
+            this.y = option.y === 0 ? 0 : option.y || 100;
+            this.w = option.w || 100;
+            this.h = option.h || 100;
+            this.angle = option.angle === 0?0 : option.a || 0;
+            this.fillStyle = option.fillStyle || 'silver';
+            this.strokeStyle = option.strokeStyle || "red";
+            this.strokeWidth = option.strokeWidth || 4;
+            this.scaleX = option.scaleX || 1;
+            this.scaleY = option.Y || 1;
+        },
+        render:function (ctx) {//把矩形渲染到 canvas 中
+            ctx.save();
+            ctx.translate(this.x, this.y)//位移画布
+            ctx.rotate(this.angle * Math.PI/180);//旋转角度
+            ctx.scale(this.scaleX, this.scaleY);//缩放
+            ctx.fillStyle = this.fillStyle;
+            ctx.fillRect(0,0,this.w, this.h);//填充矩形
+            ctx.lineWidth = this.strokeWidth;//线宽
+            ctx.strokeStyle = this.strokeStyle;//填充样式
+            ctx.strokeRect(0,0,this.w, this.h);//描边样式
+        },
+        constructor: ItcastRect
+
+    }
+
+</script>
+</html>

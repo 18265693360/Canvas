@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+
+    // 绘制一条二次方曲线
+// 微软的画图板中的曲线的颜色。
+// quadratic：二次方的意思， 英 [kwɒ'drætɪk] 美 [kwɑ'drætɪk]
+// Curve：曲线的意思， 英 [kɜːv] 美 [kɝv]
+// 语法： context.quadraticCurveTo(cpx,cpy,x,y);
+// 参数：
+// cpx： 贝塞尔控制点的 x 坐标
+// cpy： 贝塞尔控制点的 y 坐标
+//  x ： 结束点的 x 坐标
+    context.quadraticCurveTo(cpx,cpy,x,y);
+    ctx.beginPath();
+    ctx.moveTo(20,20);
+    //绘制2次方曲线 贝塞尔曲线
+    ctx.quadraticCurveTo(10,100,200,20);
+    ctx.stroke();
+
+
+
+
+
+
+    // 绘制一条三次贝塞尔曲线
+    context.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y);
+    // 提示：三次贝塞尔曲线需要三个点。前两个点是用于三次贝塞尔计算中的控制点，
+    // 第三个点是曲线的结束点。曲线的开始点是当前路径中最后一个点。
+    // 如果路径不存在，那么请使用 beginPath() 和 moveTo() 方法来定义开始点。
+    // cp1x： 第一个贝塞尔控制点的 x 坐标
+    // cp1y： 第一个贝塞尔控制点的 y 坐标
+    // cp2x： 第二个贝塞尔控制点的 x 坐标
+    // cp2y： 第二个贝塞尔控制点的 y 坐标
+    // x: 结束点的 x 坐标
+    // y: 结束点的 y 坐标
+
+    //绘制
+    ctx.beginPath();
+    ctx.moveTo(400,400);
+    ctx.bezierCurveTo(500,200,600,700,300);
+    ctx.stroke();
+
+    // 了解创建两条切线的弧
+    context.arcTo(x1,y1,x2,y2,r)
+    ctx.arcTo(240,100,240,110,40)
+    // y1: 弧的端点1的 y 坐标
+    // x2: 弧的端点2(终点)的 x 坐标
+    // y2: 弧的端点2(终点)的 y 坐标
+    // r : 弧的半径
+
+    // 判断点是否在路径中
+    context.isPointInPath(x,y);
+    //isPointInPath() 方法返回 true  如果指定的点位于当前路径 否则返回false
+    //判断 x,y 坐标的点是否在当前路径
+
+    // 文本宽度计算
+    context.measureText(text).width;
+
+    // 游戏方面
+    // setTransform() 将当前转换重置为单位矩阵。然后运行 transform()
+    // transform() 替换绘图的当前转换矩阵
+    // globalCompositeOperation 设置或返回新图像如何绘制到已有的图像上
+
+
+
+
+
+
+
+</script>
+</html>

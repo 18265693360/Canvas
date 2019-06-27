@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: #000;
+            text-align: center;
+        }
+        #canvas{
+            background: #fff;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<input type="file" id="file">
+<canvas id="canvas" width="600" height="600"></canvas>
+</body>
+<!--上传一张图片 使用axios-->
+<script src="node_modules/axios/dist/axios.js"></script>
+<script>
+
+    //token值
+    var token = 'hiaSMM1QqBT-0Q0KywiDrpp_tXbgBz8p1mFXkoil:H7kR5bo7d0WRMKyhSwwfd4Qk_4Q=:eyJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6ICQoa2V5KSwgXCJoYXNoXCI6ICQoZXRhZyksIFwidXJsXCI6IFwiaHR0cDovL3BibC55YW9qdW5yb25nLmNvbS8kKGtleSlcIn0iLCJzY29wZSI6InB1YmxpYyIsImRlYWRsaW5lIjoxNTYxMzc0MDU2fQ=='
+
+
+
+
+
+    var $ = document.querySelectorAll.bind(document);
+
+    var canvas = $('#canvas')[0];
+    var ctx = canvas.getContext('2d');
+    var file = $('#file')[0];
+
+    file.onchange = function () {
+        //需要img 对象
+        var img = new Image();
+        //需要 src 路径
+        //但是要把路径读取 FileReader
+        var reader = new FileReader();
+        reader.onload = function (data) {
+            //获取图片的base64值  拿到图片的base64值 将数据画入canvas
+            // console.log(data.target.result,'data');
+            //图片的 src = data.target.result
+            img.src = data.target.result;
+            //载入img 并画入 canvas
+            img.onload = function () {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                // console.log(img.width);
+                ctx.drawImage(img, 0,0,canvas.width,canvas.height)
+                //canvas转成二进制 toBlob
+                canvas.toBlob(function (data) {
+                    var formData = new FormData();//创建一个表单元素
+                    formData.append('file', data);
+                    // axios.get('upload.yaojunrong.com/getToken',formData).then(res=>{
+                    //     console.log(res);
+                    // });
+                    formData.append('token', token);
+                    axios.post('https://upload-z1.qiniup.com',formData).then(res=>{
+                        console.log(res);
+                    })
+                }, 'image/jpeg', .5);
+            }
+
+
+        };
+        var str = reader.readAsDataURL(this.files[0]);
+        console.log('str', str);
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    *  canvas.toBlob(callback, type, encoderOptions);
+    *  callback
+    *  回调函数，可获得一个单独的Blob对象参数。 将二进制放入参数中
+    *
+    *  type
+    *  DOMString类型，指定图片格式，默认格式为image/png。
+    *
+    *  Number类型，值在0与1之间，
+    *  当请求图片格式为image/jpeg或者image/webp时用来指定图片展示质量。
+    *  如果这个参数的值不在指定类型与范围之内，则使用默认值，其余参数将被忽略。
+    * */
+
+
+
+
+
+    /*
+    * Token 值
+登录令牌.利用 token 值来判断用户的登录状态.类似于 MD5 加密之后的长字符串.
+
+用户登录成功之后,在后端(服务器端)会根据用户信息生成一个唯一的值.这个值就是 token 值.
+
+基本使用
+在服务器端(数据库)会保存这个 token 值,以后利用这个 token 值来检索对应的用户信息,并且判断用户的登录状态.
+
+用户登录成功之后,服务器会将生成的 token 值返回给 客户端,在客户端也会保存这个 token 值.(一般可以保存在 cookie 中,也可以自己手动确定保存位置(比如偏好设置.)).
+
+以后客户端在发送新的网络请求的时候,会默认自动附带这个 token 值(作为一个参数传递给服务器.).服务器拿到客户端传递的 token 值跟保存在 数据库中的 token 值做对比,以此来判断用户身份和登录状态.
+
+判断登录状态
+如果客户端没有这个 token 值,意味着没有登录成功过,提示用户登录.
+
+如果客户端有 token 值,一般会认为登录成功.不需要用户再次登录(输入账号和密码信息).
+
+token 值扩展
+token 值有失效时间:
+一般的 app ,token值得失效时间都在 1 年以上.
+特殊的 app :银行类 app /支付类 app :token值失效时间 15 分钟左右.
+
+一旦用户信息改变(密码改变),会在服务器生成新的 token 值,原来的 token值就会失效.需要再次输入账号和密码,以得到生成的新的 token 值.
+
+唯一性判断:
+每次登录,都会生成一个新的token值.原来的 token 值就会失效.利用时间来判断登录的差异性.
+    * */
+
+
+</script>
+</html>

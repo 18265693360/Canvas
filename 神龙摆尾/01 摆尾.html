@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            text-align: center;
+            background: #000;
+        }
+        #canvas{
+            margin-top: 20px;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="800" height="500"></canvas>
+</body>
+<script>
+    var $ = document.querySelectorAll.bind(document);
+    var canvas = $('#canvas')[0];
+    var img = new Image();
+    img.src = './img/fish1.png';
+
+    var ctx = canvas.getContext('2d');
+
+
+    //244 34
+    //86 34
+    var left = 0;
+    function draw() {
+        left +=2;
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.drawImage(img,0,0,86,34,0,0,86,34);
+        ctx.drawImage(img,0,34,86,34,86,0,86,34);
+        ctx.drawImage(img,0,68,86,34,172,0,86,34);
+        ctx.drawImage(img,0,102,86,34,258,0,86,34);
+        requestAnimationFrame(draw);
+    }
+    draw();
+
+</script>
+</html>

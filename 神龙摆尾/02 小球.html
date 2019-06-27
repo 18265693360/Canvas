@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var x = 20;
+    var speed = 4;
+    //电脑的帧率是1秒钟60Hz， 就相当于一秒钟可以播放60张图片，就相当于播放一张图片使用16.7ms
+
+    function draw () {
+//1. 先把画布清空
+        context.clearRect(0, 0, canvas.width, canvas.height);
+//2. 画小球
+        context.beginPath();
+        var gradient = context.createRadialGradient(x-10,190,0,x,200,20);
+        gradient.addColorStop(0,'#fff');
+        gradient.addColorStop(1,'#333');
+        context.fillStyle = gradient;
+        context.arc(x, 200, 20, 0, 2*Math.PI);
+        context.fill();
+//3. x要移动
+        x += speed;
+        if(x>canvas.width - 20||x<20){
+            speed = -speed;
+        }
+//被优化过的动画执行方向1.递归调用；2.可以自适应浏览器的刷新的帧率
+        requestAnimationFrame(draw);
+    }
+    draw();
+</script>
+</html>

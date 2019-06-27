@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            text-align: center;
+            background: #000;
+        }
+        #canvas{
+            margin-top: 10px;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="500"></canvas>
+</body>
+<script>
+    var canvas = document.querySelector('#canvas');
+    var ctx = canvas.getContext('2d');
+
+    //线 矩形 圆形 扇形 弧形 （都用弧度）
+
+    ctx.moveTo(100,100);//将画笔移动到 x100 y100
+    ctx.lineTo(400,100);//从起点100,100开始画线到500,100
+    ctx.lineWidth = 100;
+    ctx.strokeStyle = "#409eff";
+    ctx.stroke();//实施
+</script>
+</html>

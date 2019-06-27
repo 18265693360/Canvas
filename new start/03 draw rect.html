@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: #000;
+            text-align: center;
+        }
+        #canvas{
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<button>清空</button>
+<button>停下来</button>
+<canvas id="canvas" width="600" height="500"></canvas>
+</body>
+<script>
+    var $ = document.querySelectorAll.bind(document);
+    var canvas = $('canvas')[0];
+    var ctx = canvas.getContext('2d');
+
+
+    // ctx.rect(100,100,100,50);
+    // ctx.stroke();
+    // ctx.fill();
+
+    //上下等价
+
+    // ctx.strokeRect(100,100,100,50)
+    // var left = 0;
+    // setInterval(function () {
+    //     left++;
+    //     ctx.clearRect(left,100,200,100)
+    //     ctx.fillRect(left,100,100,50)
+    // },10)
+
+    // var left = 0;
+    // setInterval(function () {
+    //     left+=4;
+    //     ctx.clearRect(0,0,canvas.width,canvas.height);
+    //     ctx.fillRect(left,100,100,100,50);
+    // },18);
+    //30帧不卡 60帧流畅 为了兼容性能不同的机器
+    //特殊的API      requestAnimationFrame()
+
+    var stop = false;
+    var left = 0;
+    function next() {
+        if (!stop){
+            left+=2;
+            ctx.clearRect(0,0,canvas.width, canvas.height)
+            ctx.fillRect(left,100,100,50);
+            requestAnimationFrame(next);
+        } else{
+            return
+        }
+    }
+    requestAnimationFrame(next);
+    $('button')[1].onclick = function () {
+        stop = true
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

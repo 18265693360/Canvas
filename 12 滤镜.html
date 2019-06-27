@@ -110,12 +110,15 @@
         var canvasData = tempContext.getImageData(0, 0, canvas.width, canvas.height);
         var binaryData = canvasData.data;
 
+        console.log(canvasData);
+        console.log(binaryData);
         // Processing all the pixels
         gfilter.colorAdjustProcess(binaryData, len);
 
         // Copying back canvas data to canvas
         tempContext.putImageData(canvasData, 0, 0);
-    }
+    };
+
 
     var blurButton = document.getElementById("blur-button");
     blurButton.onclick = function blurImage() {

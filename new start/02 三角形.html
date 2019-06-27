@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background: #000;
+            text-align: center;
+        }
+        #canvas{
+            margin-top: 10px;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="600" height="500"></canvas>
+<button>加线条</button>
+</body>
+<script>
+    //JQ选中
+    // var $ = document.querySelectorAll.bind(document);
+    var $ = document.querySelectorAll.bind(document);
+    //bind作用   bind就是为了防止this指向改变
+    //更改this的指向 同时给你返回一个函数（已经修改过this指向的函数）
+
+
+
+    var canvas = $('#canvas')[0];
+    // var canvas = document.querySelector('canvas');
+    var ctx = canvas.getContext('2d');
+    var btn = $('button')[0];
+
+//可以防止别的操作覆盖本操作   想添加到别人的代码中 那就必须 自己开辟开始路径
+// ctx.beginPath();
+//     ctx.moveTo(100,100);
+//     ctx.lineTo(100,200);
+//     ctx.lineTo(200,100);
+//     ctx.closePath();
+//     ctx.stroke();
+//     ctx.fillStyle = "#409eff";
+//     ctx.fill();
+
+    btn.onclick = function () {
+        ctx.beginPath();
+        ctx.moveTo(200,100);
+        ctx.lineTo(200,300);
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = '#f00'
+        ctx.stroke();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

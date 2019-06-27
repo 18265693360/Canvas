@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: #000;
+            text-align: center;
+        }
+        #canvas{
+            background: #fff;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" height="600" width="600"></canvas>
+</body>
+<script>
+    const canvas = document.querySelector('#canvas');
+    const ctx = canvas.getContext('2d');
+
+
+    var img = new Image();
+    img.src = './img/fish1.png';
+    var frame = 0;
+    let count = 0;
+
+    //加载图片
+    img.onload = function(){
+        const _this = this;
+
+        requestAnimationFrame(move);
+        function move() {
+            count++;
+            //摆尾记数
+            if (count == 16){
+                frame++;
+                //动起来
+                ctx.clearRect(0,0,canvas.width, canvas.height)
+                ctx.drawImage(_this,0, 37*frame,55,37,100,100,55,37);
+                //frame帧计数 3 就是四张图
+                if (frame == 3){
+                    frame = 0;//
+                }
+                count = 0;//置零
+            }
+            //循环请求动画
+            requestAnimationFrame(move);
+        }
+    }
+
+
+</script>
+</html>

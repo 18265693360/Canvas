@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> </title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background: #000;
+            text-align: center;
+        }
+        #canvas{
+            background: #fff;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<button>再转一点</button>
+<canvas id="canvas" height="600" width="600"></canvas>
+</body>
+<script>
+    const btn = document.querySelector('button');
+    const canvas = document.querySelector('#canvas');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width;
+    const H = canvas.height;
+
+    function ang(n) {
+        return n * Math.PI / 180;
+    }
+
+    ctx.beginPath();//清空之前的路径操作
+    ctx.save();
+
+    ctx.save();
+    ctx.translate(100,100);
+    ctx.rotate(ang(45));
+    ctx.strokeRect(-50, -100,100,200)
+    ctx.restore();
+    //.save()  .restore() 是会保存当前状态 以免影响下面的旋转 因为下面的旋转会和上面的旋转叠加
+
+    btn.onclick = function () {
+        ctx.clearRect(0,0,W,H);
+        ctx.save();//清空 避免上面受到影响
+        ctx.translate(150,200);
+        ctx.rotate(ang(60));
+        ctx.strokeRect(-50,-100,100,200)
+        ctx.restore();//避免影响别人
+    }
+
+
+</script>
+</html>
